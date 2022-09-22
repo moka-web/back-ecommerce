@@ -63,7 +63,7 @@ class Product {
             const db = await this.connectMdb()
             if(!db) throw'cannot connect';
             const updatedProd = await productSchema.updateOne( {_id:id},{$set:modify})
-            //mongoose.disconnect
+            mongoose.disconnect
             return updatedProd;
             
         } catch (error) {
@@ -78,7 +78,7 @@ class Product {
             const db = await this.connectMdb();
             if(!db) throw 'cannot conect';
             const deleteOne = await productSchema.findByIdAndDelete(id)
-            //mongoose.disconnect
+            mongoose.disconnect
             return deleteOne;
 
         } catch (error) {

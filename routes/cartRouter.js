@@ -1,9 +1,9 @@
 const express = require('express')
 const cartDaos = require('../daos/cartDaos.js')
-
+const {cartDaos:Cart} = require('../daos/mainDaos')
 const cartRouter= express.Router();
 
-const cart = new cartDaos()
+const cart = new Cart()
 
 cartRouter.post('/', async(req,res)=>{
     try {

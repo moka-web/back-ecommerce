@@ -1,12 +1,13 @@
 const express = require('express')
-const productDaos = require('../daos/productDaos.js')
+//const productDaos = require('../daos/productDaos.js')
+const {productDaos:Product} = require('../daos/mainDaos')
 
 const routerProducts = express.Router();
 
 
 routerProducts.get('/', async (req,res) =>{
 
-const prod = new productDaos()
+const prod = new Product();
 
     try {
         const productos = await prod.getAll()
@@ -32,7 +33,7 @@ const prod = new productDaos()
 
 routerProducts.get('/:id', async (req,res) =>{
 
-    const prod = new productDaos()
+    const prod = new Product()
     const id = req.params.id;
         try {
             const product_id = await prod.getById(id)
@@ -74,7 +75,7 @@ routerProducts.post('/' , function(req,res,next){
         console.log(body)
        
             try {
-                const prod =  new productDaos();
+                const prod =  new Product();
                 const newProd = await prod.save(body);
             
                 res.status(200).send({
@@ -103,7 +104,7 @@ routerProducts.put('/:id', function (req,res,next){
     const id = req.params.id;
     const body = req.body;
     try {
-        const prod = new productDaos()
+        const prod = new Product()
         const updatedproduct= await prod.update( id , body )
         res.status(200).send({
             status: 200,
@@ -128,7 +129,7 @@ routerProducts.delete('/:id',function (req,res,next){
     }, async (req,res)=>{
         const id = req.params.id;
         try {
-            const prod = new productDaos();
+            const prod = new Product();
             const deleted = await prod.deleteOne(id);
             res.status(200).send({
                 status: 200,
