@@ -32,9 +32,7 @@ class Product {
         try {
             const db = await this.connectMdb();
             if (!db) throw 'can not connect to the db';
-            //console.log(db);
             const products = await productSchema.find({})
-            //console.log(products)
             return products
         } catch (error) {
             console.error(error.message)
@@ -49,7 +47,6 @@ class Product {
             const db = await this.connectMdb();
             if (!db) throw 'can not connect to the db';
             const product_id= await productSchema.findById(id)
-            //mongoose.disconnect()
             return product_id
             
         } catch (error) {
