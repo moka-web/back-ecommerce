@@ -9,7 +9,7 @@ const productSchema= new mongoose.Schema({
     thumbnail:{type:String,required:true},
     description: {type: String, require: true},
     timestamp:{type:String,require:false},
-    id_prod:{type:Number,required:true},
+    idProd:{type:Number,required:false},
 })
 
 

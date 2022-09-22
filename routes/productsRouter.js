@@ -35,7 +35,7 @@ routerProducts.get('/:id', async (req,res) =>{
     const prod = new productDaos()
     const id = req.params.id;
         try {
-            const product_id = await prod.getById()
+            const product_id = await prod.getById(id)
 
             res.status(200).send({
                 status: 200,
@@ -59,14 +59,87 @@ routerProducts.get('/:id', async (req,res) =>{
 
 
 
+routerProducts.post('/' , function(req,res,next){
 
+    if (req.query.admin ==  1) {
+        console.log(` admnin ${req.query.admin} is connected`)
+                
+        next()
+    } else {
+        res.send({ error: "No admin"})
+    }
 
+}, async (req,res) =>{
+        const body = req.body;
+        console.log(body)
+       
+            try {
+                const prod =  new productDaos();
+                const newProd = await prod.save(body);
+            
+                res.status(200).send({
+                status: 200,
+                data: {
+                    newProd,
+                },message:'producto cargado'})
 
-// routerProducts.post();
+            } catch (error) {
+                console.log(error.message)
+                
+        }
 
-// routerProducts.put();
+});
 
-// routerProducts.delete();
+routerProducts.put('/:id', function (req,res,next){
+    
+    if (req.query.admin ==  1) {
+        console.log(` admnin ${req.query.admin} is connected`)
+        next()
+    } else {
+        res.send({ error: "No admin"})
+    }
+
+}, async (req,res) =>{
+    const id = req.params.id;
+    const body = req.body;
+    try {
+        const prod = new productDaos()
+        const updatedproduct= await prod.update( id , body )
+        res.status(200).send({
+            status: 200,
+            data: {
+                updatedproduct,
+            },message:'producto cargado'})
+        
+    } catch (error) {
+        console.log(error.message)
+        
+    }
+}
+ );
+
+routerProducts.delete('/:id',function (req,res,next){
+    
+    if (req.query.admin ==  1) {
+        console.log(` admnin ${req.query.admin} is connected`)
+        next()
+    } else {res.send({ error: "No admin"})}
+    
+    }, async (req,res)=>{
+        const id = req.params.id;
+        try {
+            const prod = new productDaos();
+            const deleted = await prod.deleteOne(id);
+            res.status(200).send({
+                status: 200,
+                data: {
+                    deleted,
+                },message:'producto eliminado'})
+            
+        } catch (error) {
+            console.log(error.message)
+        }
+    });
 
 
 
